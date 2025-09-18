@@ -1,0 +1,33 @@
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine
+      args:
+        # escolha a tag alpine do n8n (pode trocar por :latest, :1.81.0, :next etc.)
+        N8N_IMAGE: docker.n8n.io/n8nio/n8n:1.81.0
+    container_name: n8n-ai
+    ports:
+      - "5678:5678"
+    environment:
+      # UI do n8n
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      # Auth básica na UI (troque as credenciais no .env se quiser)
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASS:-troque-esta-senha}
+      # (opcional) pasta alternativa de dados
+      # - N8N_USER_FOLDER=/home/node/.n8n
+    volumes:
+      # dados do n8n (workflows/credenciais)
+      - ./data:/home/node/.n8n
+      # seu repositório RUNDECK_AI montado como workspace
+      - ../:/workspace
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5678 || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
