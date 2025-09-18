@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rundeck AI – Painel Executivo (RBM)</title>
-  <meta name="description" content="Painel estático: consome app/ai_analysis.json e exibe KPIs, gráficos 3D e listas de insights executivos." />
+  <meta name="description" content="Painel estático: consome ai_analysis.json e exibe KPIs, gráficos 3D e listas de insights executivos." />
   <style>
     :root{--fg:#0f172a;--muted:#94a3b8;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041}
     *{box-sizing:border-box} html,body{height:100%}
@@ -52,7 +52,7 @@
 <body>
   <header class="container header">
     <h1>Rundeck AI – Painel Executivo</h1>
-    <p class="sub">Modelo: BernoulliRBM · Fonte: /app/ai_analysis.json · Render estático</p>
+    <p class="sub">Modelo: BernoulliRBM · Fonte: ai_analysis.json · Render estático</p>
     <div class="flex">
       <span class="badge" id="badge-updated" title="Última atualização do ai_analysis.json">Atualizando…</span>
       <span class="pill">RE = Reconstruction Error</span>
@@ -163,7 +163,7 @@
     const esc = (s) => (s ?? '').toString().replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
     const toNum = (v, fb=0) => { if (v==null) return fb; if (typeof v==='string') v=v.replace(',', '.').replace(/[^0-9eE.\-+]/g,''); const n=Number(v); return Number.isFinite(n)?n:fb; };
 
-    const DATA_URL = new URL('./app/ai_analysis.json?ts=' + Date.now(), document.baseURI);
+    const DATA_URL = new URL('.ai_analysis.json?ts=' + Date.now(), document.baseURI);
 
     let raw = null;
     let filtered = null;
