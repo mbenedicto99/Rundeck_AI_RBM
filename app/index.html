@@ -6,7 +6,7 @@
   <title>Rundeck AI – Painel Executivo (RBM)</title>
   <meta name="description" content="Painel estático: consome app/ai_analysis.json e exibe KPIs, gráficos 3D e listas de insights executivos." />
   <style>
-    :root{--fg:#0f172a;--muted:#94a3b8;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041;--acc:#7dd3fc}
+    :root{--fg:#0f172a;--muted:#94a3b8;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041}
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
     h1,h2{margin:.2rem 0 1rem} h1{font-size:1.6rem} h2{font-size:1.1rem}
@@ -14,6 +14,7 @@
     .header{display:flex;flex-direction:column;gap:.4rem;border-bottom:1px solid var(--line)}
     .sub{color:var(--muted);margin:.2rem 0}
     .badge{background:#132038;border:1px solid var(--line);padding:.2rem .5rem;border-radius:999px;color:#a5b4fc;font-size:.75rem}
+    .pill{display:inline-block;padding:.15rem .5rem;border:1px solid #32507a;border-radius:999px;font-size:.72rem;color:#9ac1ff}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
     @media(min-width:980px){.grid{grid-template-columns:1fr 1fr}}
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -34,12 +35,17 @@
     .hint{color:#94a3b8;text-align:center;padding:14px}
     .insights{display:grid;grid-template-columns:1fr;gap:12px}
     .insight{background:#0b1220;border:1px dashed #2a3a55;border-radius:10px;padding:10px}
-    .pill{display:inline-block;padding:.15rem .5rem;border:1px solid #32507a;border-radius:999px;font-size:.72rem;color:#9ac1ff}
     .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     .row{display:flex;gap:16px;flex-wrap:wrap}
     .grow{flex:1 1 320px}
     .plot{width:100%;height:420px}
     .note{color:#9ab8d7;font-size:.8rem;margin-top:6px}
+    .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:10px 0}
+    @media(min-width:980px){.controls{grid-template-columns:repeat(6,1fr)}}
+    .controls label{font-size:.78rem;color:#9fb4cf}
+    .controls .field{display:flex;flex-direction:column;gap:6px}
+    select, input[type="date"], input[type="checkbox"]{background:#0b1220;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:.45rem}
+    .tog{display:flex;align-items:center;gap:6px}
   </style>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 </head>
@@ -50,11 +56,48 @@
     <div class="flex">
       <span class="badge" id="badge-updated" title="Última atualização do ai_analysis.json">Atualizando…</span>
       <span class="pill">RE = Reconstruction Error</span>
-      <span class="pill">p95 = Percentil 95</span>
+      <span class="pill">Plano z = p95 global</span>
     </div>
   </header>
 
   <main class="container">
+    <!-- CONTROLES -->
+    <section class="card">
+      <h2>Filtros</h2>
+      <div class="controls">
+        <div class="field">
+          <label for="date-from">De</label>
+          <input type="date" id="date-from" />
+        </div>
+        <div class="field">
+          <label for="date-to">Até</label>
+          <input type="date" id="date-to" />
+        </div>
+        <div class="field">
+          <label for="sel-proj">Projeto (Sub-Application)</label>
+          <select id="sel-proj"><option value="">Todos</option></select>
+        </div>
+        <div class="field">
+          <label for="sel-job">Job</label>
+          <select id="sel-job"><option value="">Todos</option></select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <div class="tog"><input type="checkbox" id="chk-success" checked /><span>Sucesso</span></div>
+          <div class="tog"><input type="checkbox" id="chk-fail" checked /><span>Falha</span></div>
+        </div>
+        <div class="field">
+          <label>Opções</label>
+          <div class="tog"><input type="checkbox" id="chk-plane" checked /><span>Exibir plano p95</span></div>
+          <div class="tog"><input type="checkbox" id="chk-group" checked /><span>Agrupar hotspots por projeto</span></div>
+        </div>
+      </div>
+      <div class="flex">
+        <button id="btn-apply" class="ghost" type="button">Aplicar filtros</button>
+        <button id="btn-clear" class="ghost" type="button">Limpar</button>
+      </div>
+    </section>
+
     <!-- KPIs -->
     <section aria-labelledby="kpis-title" class="card">
       <h2 id="kpis-title">Resumo</h2>
@@ -79,7 +122,7 @@
       <div class="card grow">
         <h2>Risco p95 por Job (3D)</h2>
         <div id="plot-p95" class="plot" role="img" aria-label="Gráfico 3D de p95 de RE por job com volume de ocorrências"></div>
-        <div class="note">Bolha maior = mais ocorrências; eixo Z = p95 de RE do job.</div>
+        <div class="note">Bolha maior = mais ocorrências; eixo Z = p95 de RE do job. Plano z = p95 global como referência.</div>
       </div>
     </section>
 
@@ -123,6 +166,7 @@
     const DATA_URL = new URL('./app/ai_analysis.json?ts=' + Date.now(), document.baseURI);
 
     let raw = null;
+    let filtered = null;
 
     async function loadData() {
       setStatus('Atualizando…');
@@ -130,7 +174,8 @@
         const res = await fetch(DATA_URL, { cache: 'no-store', credentials: 'same-origin', headers: { 'Accept': 'application/json' } });
         if (!res.ok) throw new Error('Falha ao carregar ai_analysis.json: ' + res.status);
         raw = await res.json();
-        renderAll(raw);
+        hydrateSelectors(raw);
+        applyFilters();
         setStatus('Atualizado');
       } catch (e) {
         console.error(e);
@@ -140,15 +185,76 @@
 
     function setStatus(text) { $('#badge-updated').textContent = text; }
 
-    function renderAll(d) {
-      const resumo = d?.resumo || {};
-      const total = toNum(resumo.total_execucoes ?? resumo.registros);
-      const failed = toNum(resumo.por_status?.failed ?? resumo.falhas);
-      const success = toNum(resumo.por_status?.success ?? resumo.sucesso ?? (total - failed));
-      const avgDur = toNum(resumo.duracao_media_s ?? resumo.duracaoMediaS, 0);
-      const re95g  = toNum(resumo.re_p95_global ?? resumo.reP95Global, 0);
+    // ---- Filtros ----
+    function hydrateSelectors(d){
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const projetos = [...new Set(hot.map(x => String(x.projeto||'').trim()).filter(Boolean))].sort();
+      const jobs = [...new Set(hot.map(x => String(x.job||'').trim()).filter(Boolean))].sort();
 
-      // KPIs
+      const projSel = $('#sel-proj'); projSel.innerHTML = '<option value=\"\">Todos</option>' + projetos.map(p=>`<option>${esc(p)}</option>`).join('');
+      const jobSel  = $('#sel-job');  jobSel.innerHTML  = '<option value=\"\">Todos</option>' + jobs.map(p=>`<option>${esc(p)}</option>`).join('');
+
+      // Datas padrão (amplitude total dos hotspots)
+      const times = hot.map(h => Date.parse(h.inicio||''))
+                       .filter(v => Number.isFinite(v))
+                       .sort((a,b)=>a-b);
+      if (times.length){
+        const from = new Date(times[0]), to = new Date(times[times.length-1]);
+        $('#date-from').value = toInputDate(from);
+        $('#date-to').value   = toInputDate(to);
+      }
+    }
+
+    function getFilters(){
+      const f = {
+        from: parseInputDate($('#date-from').value),
+        to:   endOfDay(parseInputDate($('#date-to').value)),
+        proj: $('#sel-proj').value.trim(),
+        job:  $('#sel-job').value.trim(),
+        ok:   $('#chk-success').checked,
+        fail: $('#chk-fail').checked,
+        plane: $('#chk-plane').checked,
+        group: $('#chk-group').checked
+      };
+      return f;
+    }
+
+    function applyFilters(){
+      const d = raw || {};
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+      const resumo = d?.resumo || {};
+      const re95g  = toNum(resumo.re_p95_global ?? 0);
+
+      const f = getFilters();
+      const sel = hot.filter(h => {
+        const t = Date.parse(h.inicio||'');
+        const inDate = !Number.isFinite(t) || (!f.from || t >= f.from) && (!f.to || t <= f.to);
+        const inProj = !f.proj || String(h.projeto||'') === f.proj;
+        const inJob  = !f.job  || String(h.job||'') === f.job;
+        const st = String(h.status||'').toLowerCase();
+        const inStatus = (f.ok && st.startsWith('suc')) || (f.fail && st.startsWith('fail'));
+        return inDate && inProj && inJob && inStatus;
+      });
+
+      filtered = { resumo, hot: sel, p95jobs, re95g, options: f };
+      renderAll(filtered);
+    }
+
+    // Dates helpers
+    function toInputDate(d){ if(!d) return ''; const p = (n)=> String(n).padStart(2,'0'); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+    function parseInputDate(s){ if(!s) return null; const [Y,M,D] = s.split('-').map(Number); return Date.UTC(Y,M-1,D,0,0,0); }
+    function endOfDay(ts){ if(!ts) return null; return ts + 24*60*60*1000 - 1; }
+
+    // ---- Renderização ----
+    function renderAll(f) {
+      const total = toNum(raw?.resumo?.total_execucoes);
+      const failed = toNum(raw?.resumo?.por_status?.failed);
+      const success = toNum(raw?.resumo?.por_status?.success ?? (total - failed));
+      const avgDur = toNum(raw?.resumo?.duracao_media_s, 0);
+      const re95g  = toNum(f?.re95g, 0);
+
+      // KPIs (mantemos os globais; hotspots mostra efeito do filtro nas tabelas e plots)
       $('#kpi-total').textContent   = fmt(total);
       $('#kpi-failed').textContent  = fmt(failed);
       $('#kpi-success').textContent = fmt(success);
@@ -156,16 +262,15 @@
       $('#kpi-re95').textContent    = fmt(re95g, 3);
       $('#kpi-failrate').textContent= total ? (failed/total*100).toFixed(1) + '% falha' : '–';
 
-      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
-      $('#kpi-hotcnt').textContent = fmt(hot.length);
-
       // Top jobs por p95
-      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+      const p95jobs = f?.p95jobs || [];
       const topNames = p95jobs.slice(0,3).map(j => j.job).join(', ') || '—';
       $('#kpi-topjobs').textContent = p95jobs.length ? fmt(p95jobs.length) : '0';
       $('#kpi-topjobs-names').textContent = topNames;
 
-      // Tabela hotspots (primeiras 50 linhas)
+      // Tabela hotspots (filtrados; primeiras 50 linhas)
+      const hot = f?.hot || [];
+      $('#kpi-hotcnt').textContent = fmt(hot.length);
       const tbody = $('#tbl-hotspots tbody');
       tbody.innerHTML = '';
       (hot.slice(0,50)).forEach(s => {
@@ -181,15 +286,15 @@
           </tr>`);
       });
 
-      render3D(hot, p95jobs, re95g);
-      renderInsights(d);
+      render3D(hot, p95jobs, re95g, f?.options || {});
+      renderInsights({resumo: raw?.resumo, hotspots: hot, risco_p95_por_job: p95jobs});
     }
 
-    function render3D(hot, p95jobs, re95g){
+    function render3D(hot, p95jobs, re95g, opts){
       // -------- Plot 1: Hotspots 3D --------
-      const maxPoints = 1000;
+      const maxPoints = 1500;
       const arr = hot.slice(0, maxPoints).map((x,i)=> ({
-        t: Date.parse(x.inicio || '') || (i*60*1000), // fallback: índice*minuto
+        t: Date.parse(x.inicio || '') || (i*60*1000),
         dur: toNum(x.duracao_s ?? x.duracao ?? 0),
         re: toNum(x.re ?? x.risco ?? 0),
         status: String(x.status || 'n/a'),
@@ -198,18 +303,29 @@
         exec: String(x.exec_id || '')
       }));
 
-      const groups = groupBy(arr, (o)=>o.projeto || '—');
-      const traces = Object.entries(groups).map(([proj, items]) => ({
-        type: 'scatter3d',
-        mode: 'markers',
-        name: proj,
-        x: items.map(o=>o.t),
-        y: items.map(o=>o.dur),
-        z: items.map(o=>o.re),
-        text: items.map(o=>`<b>${proj}</b> / ${o.job}<br>exec: ${o.exec}<br>status: ${o.status}<br>duração: ${o.dur}s<br>RE: ${o.re.toFixed?.(3)}`),
-        hovertemplate: '%{text}<extra></extra>',
-        marker: { size: 4, opacity: 0.9 }
-      }));
+      let traces = [];
+      if (opts.group){
+        const groups = groupBy(arr, (o)=>o.projeto || '—');
+        traces = Object.entries(groups).map(([proj, items]) => ({
+          type: 'scatter3d',
+          mode: 'markers',
+          name: proj,
+          x: items.map(o=>o.t),
+          y: items.map(o=>o.dur),
+          z: items.map(o=>o.re),
+          text: items.map(o=>`<b>${proj}</b> / ${o.job}<br>exec: ${o.exec}<br>status: ${o.status}<br>duração: ${o.dur}s<br>RE: ${o.re.toFixed?.(3)}`),
+          hovertemplate: '%{text}<extra></extra>',
+          marker: { size: 4, opacity: 0.9 }
+        }));
+      } else {
+        traces = [{
+          type: 'scatter3d', mode: 'markers', name: 'Hotspots',
+          x: arr.map(o=>o.t), y: arr.map(o=>o.dur), z: arr.map(o=>o.re),
+          text: arr.map(o=>`${o.projeto} / ${o.job}<br>exec: ${o.exec}<br>${o.status} • ${o.dur}s • RE ${o.re.toFixed?.(3)}`),
+          hovertemplate: '%{text}<extra></extra>',
+          marker: { size: 4, opacity: 0.9 }
+        }];
+      }
 
       const timeTicks = approximateTimeTicks(arr.map(a=>a.t));
       const layout1 = {
@@ -225,10 +341,23 @@
         margin: { l:0, r:0, t:0, b:0 },
       };
 
+      // Plano z = re95g (referência)
+      if (opts.plane && Number.isFinite(re95g) && re95g>0){
+        const xgrid = timeTicks.vals.length ? timeTicks.vals : [Date.now()-3600e3, Date.now()+3600e3];
+        const ygrid = linspace(0, Math.max(1, Math.max(0, ...arr.map(o=>o.dur))), 6);
+        const zgrid = Array.from({length:ygrid.length}, _ => Array.from({length:xgrid.length}, __ => re95g));
+        traces.push({
+          type: 'surface',
+          showscale: false,
+          opacity: 0.25,
+          x: xgrid, y: ygrid, z: zgrid,
+          name: 'Plano p95 global'
+        });
+      }
+
       Plotly.newPlot('plot-hotspots', traces, layout1, {displayModeBar:true, responsive:true});
 
-      // -------- Plot 2: p95 por Job (bolhas 3D) --------
-      // x = índice do job (para ordenação), y = volume (ocorrências), z = re_p95, size = volume
+      // -------- Plot 2: p95 por Job (bolhas 3D) + plano --------
       const counts = countBy(hot, (x)=> String(x.job || '—'));
       const items = p95jobs.map((j, idx) => ({
         idx, job: String(j.job), proj: String(j.projeto || ''),
@@ -243,6 +372,13 @@
         hovertemplate: '%{text}<extra></extra>',
         marker: { size: items.map(o=> Math.max(4, Math.min(30, Math.sqrt(o.vol||1)*3))), opacity:0.9 }
       }];
+
+      if (opts.plane && Number.isFinite(re95g) && re95g>0){
+        const xgrid = linspace(0, Math.max(1, items.length-1), 6);
+        const ygrid = linspace(0, Math.max(1, Math.max(0,...items.map(i=>i.vol))), 6);
+        const zgrid = Array.from({length:ygrid.length}, _ => Array.from({length:xgrid.length}, __ => re95g));
+        trace2.push({ type:'surface', showscale:false, opacity:0.25, x:xgrid, y:ygrid, z:zgrid, name:'Plano p95 global' });
+      }
 
       const layout2 = {
         paper_bgcolor: 'rgba(0,0,0,0)',
@@ -272,13 +408,13 @@
       const highRiskJobs = p95jobs.filter(j => toNum(j.re_p95) >= re95g).map(j => j.job);
 
       const insights = [];
-      if (total) insights.push(`Volume analisado: ${total.toLocaleString('pt-BR')} execuções; taxa de falha ${ (failRate*100).toFixed(1) }%.`);
+      if (total) insights.push(`Volume analisado: ${total.toLocaleString('pt-BR')} execuções; taxa de falha ${(failRate*100).toFixed(1)}%.`);
       if (highRiskJobs.length) insights.push(`Jobs acima do patamar global de risco (RE p95 ≥ ${re95g.toFixed(3)}): ${highRiskJobs.slice(0,5).join(', ')}${highRiskJobs.length>5?'…':''}.`);
       if (hot.length) {
         const worst = [...hot].sort((a,b)=> toNum(b.re)-toNum(a.re)).slice(0,1)[0];
-        if (worst) insights.push(`Maior RE observado: ${toNum(worst.re).toFixed(3)} no job ${worst.job} (${worst.projeto}), duração ${toNum(worst.duracao_s).toFixed(0)}s.`);
+        if (worst) insights.push(`Maior RE (filtro): ${toNum(worst.re).toFixed(3)} no job ${worst.job} (${worst.projeto}), duração ${toNum(worst.duracao_s).toFixed(0)}s.`);
       }
-      if (!insights.length) insights.push('Não há insights relevantes com a base atual.');
+      if (!insights.length) insights.push('Não há insights relevantes com os filtros atuais.');
 
       for (const txt of insights) {
         out.insertAdjacentHTML('beforeend', `<div class="insight">${esc(txt)}</div>`);
@@ -304,10 +440,14 @@
       const labels = vals.map(v=> new Date(v).toLocaleString('pt-BR'));
       return {vals, labels};
     }
+    function linspace(a,b,n){
+      if (n<=1) return [a];
+      const step=(b-a)/(n-1); return Array.from({length:n}, (_,i)=> a + i*step);
+    }
 
     function exportCSV(){
-      if(!raw) return;
-      const hot = Array.isArray(raw.hotspots) ? raw.hotspots : [];
+      if(!filtered) return;
+      const hot = Array.isArray(filtered.hot) ? filtered.hot : [];
       const cols = ['projeto','job','exec_id','inicio','status','duracao_s','re'];
       const header = cols.join(',');
       const lines = hot.map(r => [
@@ -316,12 +456,14 @@
       const csv = [header].concat(lines).join('\n');
       const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'hotspots.csv'; a.click();
+      const a = document.createElement('a'); a.href = url; a.download = 'hotspots_filtrados.csv'; a.click();
       URL.revokeObjectURL(url);
     }
 
     $('#btn-reload').addEventListener('click', loadData);
     $('#btn-export').addEventListener('click', exportCSV);
+    $('#btn-apply').addEventListener('click', applyFilters);
+    $('#btn-clear').addEventListener('click', () => { hydrateSelectors(raw); $('#sel-proj').value=''; $('#sel-job').value=''; $('#chk-success').checked=true; $('#chk-fail').checked=true; $('#chk-plane').checked=true; $('#chk-group').checked=true; applyFilters(); });
     window.addEventListener('DOMContentLoaded', loadData);
   </script>
 </body>
