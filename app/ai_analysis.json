@@ -1,0 +1,1087 @@
+{
+  "resumo": {
+    "total_execucoes": 4667689,
+    "por_status": {
+      "failed": 4540762,
+      "success": 126927
+    },
+    "duracao_media_s": 128.82384237681646,
+    "re_p95_global": 0.3839332971793366
+  },
+  "risco_p95_por_job": [
+    {
+      "projeto": "PROCESSADORA",
+      "job": "ELO_MIGRACAO_HIBRIDO",
+      "re_p95": 0.4982806908235969
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "CADASTRO",
+      "re_p95": 0.4840489892813389
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "re_p95": 0.4714689781975063
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "ELO_ALTA_RENDA",
+      "re_p95": 0.4520711649909614
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "FINANCEIRO",
+      "re_p95": 0.43743829116356836
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "LIQUIDACAO",
+      "re_p95": 0.4352043080996974
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "SUMUP",
+      "re_p95": 0.42175779629548926
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "ELO_FINANCEIRO",
+      "re_p95": 0.4207235252522743
+    },
+    {
+      "projeto": "ELO-BANDEIRA_BI",
+      "job": "ELO-BANDEIRA_BI",
+      "re_p95": 0.4204308707731636
+    },
+    {
+      "projeto": "ELO-MANUT",
+      "job": "ELO-MANUT",
+      "re_p95": 0.4196274690308219
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "ADYEN",
+      "re_p95": 0.4153432921553157
+    },
+    {
+      "projeto": "LIMPEZA_DIRETORIO",
+      "job": "PR_DI_SC_LIMPA_DIRETORIO_TMP",
+      "re_p95": 0.41144070235232044
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "PICPAY",
+      "re_p95": 0.40764468228149275
+    },
+    {
+      "projeto": "TECBAN",
+      "job": "TECBAN",
+      "re_p95": 0.40439038785620174
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "PAN_PISMO",
+      "re_p95": 0.4028703941283359
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "WORLDPAY",
+      "re_p95": 0.3976083538999702
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ALPHA_ONNIPRO",
+      "re_p95": 0.392013977195583
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "re_p95": 0.388833808170387
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "EDENRED",
+      "re_p95": 0.3874756605082597
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "ENTREPAY",
+      "re_p95": 0.3867348631926628
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "BIZ",
+      "re_p95": 0.38634492426616385
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "UNLIMINT",
+      "re_p95": 0.38469666938649444
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "BB_BIZ",
+      "re_p95": 0.375935081554168
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "re_p95": 0.375747250727748
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ONIBANK",
+      "re_p95": 0.37453166968427026
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "MULVI",
+      "re_p95": 0.3733194457621193
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "PEFISA",
+      "re_p95": 0.3703638298644077
+    },
+    {
+      "projeto": "DINERS",
+      "job": "DINERS",
+      "re_p95": 0.3672533891521665
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "SWAP",
+      "re_p95": 0.36545303515064587
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "VALLOO",
+      "re_p95": 0.3644003412423464
+    },
+    {
+      "projeto": "EFT_PRD",
+      "job": "EFT_ASG",
+      "re_p95": 0.33834453573628903
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ALELO",
+      "re_p95": 0.33403184858184565
+    },
+    {
+      "projeto": "ELO-BUCKET_S3",
+      "job": "ELO-BUCKET_S3",
+      "re_p95": 0.2530372636788364
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "FICO",
+      "re_p95": 0.1564045146109346
+    }
+  ],
+  "hotspots": [
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 219.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 187.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 218.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 207.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 216.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 282.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 204.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 214.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 266.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 267.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 208.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 272.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 206.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 267.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 216.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 219.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 212.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 215.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 212.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 222.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 275.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 186.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 221.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 263.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 276.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 248.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 222.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 220.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 280.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 220.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 209.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 282.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 266.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 262.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    }
+  ],
+  "top_amostras": [
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 219.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 187.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 218.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 207.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 216.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 282.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 204.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 214.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 266.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 267.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 208.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 272.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 206.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 267.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 216.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 219.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 212.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 215.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 212.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 211.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 222.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 275.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 186.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 221.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 263.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 276.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 248.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 222.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 220.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 280.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 220.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 209.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 282.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 266.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 262.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "MULTIBENEFICIOS",
+      "exec_id": "aba2a7f80aa21fab",
+      "inicio": "2025-03-09T20:00:00",
+      "status": "failed",
+      "duracao_s": 210.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "failed",
+      "duracao_s": 268.0,
+      "re": 0.8717437137859769
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "exec_id": "1b748301049b0deb",
+      "inicio": "2025-03-09T22:00:00",
+      "status": "success",
+      "duracao_s": 283.0,
+      "re": 0.8717437137859769
+    }
+  ]
+}

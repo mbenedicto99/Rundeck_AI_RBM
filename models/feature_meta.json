@@ -1,0 +1,62 @@
+{
+  "z_threshold": 2.0,
+  "continuous_cols": [
+    "duration_sec",
+    "duration_z_clipped",
+    "hour_sin",
+    "hour_cos",
+    "wday_sin",
+    "wday_cos"
+  ],
+  "binary_cols": [
+    "failed",
+    "high_runtime"
+  ],
+  "feature_cols": [
+    "duration_sec_mm",
+    "duration_z_clipped_mm",
+    "hour_sin_mm",
+    "hour_cos_mm",
+    "wday_sin_mm",
+    "wday_cos_mm",
+    "failed",
+    "high_runtime"
+  ],
+  "minmax": {
+    "duration_sec": {
+      "min": 1.0,
+      "max": 1363.0
+    },
+    "duration_z_clipped": {
+      "min": -3.6060606918344833,
+      "max": 5.0
+    },
+    "hour_sin": {
+      "min": -1.0,
+      "max": 1.0
+    },
+    "hour_cos": {
+      "min": -1.0,
+      "max": 1.0
+    },
+    "wday_sin": {
+      "min": 0.0,
+      "max": 0.9749279121818236
+    },
+    "wday_cos": {
+      "min": -0.22252093395631434,
+      "max": 1.0
+    }
+  },
+  "id_cols": [
+    "job_id",
+    "job_name",
+    "project",
+    "start_time",
+    "end_time",
+    "status",
+    "duration_sec",
+    "duration_z",
+    "date"
+  ]
+}
