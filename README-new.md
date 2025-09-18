@@ -27,62 +27,62 @@ flowchart TB
   S[/data/slice.csv/]
 
   %% ========= ORQUESTRAÇÃO =========
-  subgraph N8N[Orquestração • n8n]
+  subgraph N8N["Orquestração • n8n"]
     direction TB
-    Cron[[Cron (agendado)]] --> Exec[Execute Command<br/>source /home/node/venv/bin/activate; python scripts/pipeline.py]
+    Cron[["Cron (agendado)"]] --> Exec[Execute Command<br/>source /home/node/venv/bin/activate; python scripts/pipeline.py]
     Webhook[[Webhook /run-pipeline]] -->|input, fileUrl| IF{fileUrl?}
-    IF -- "sim" --> DL[HTTP Request (download)]
-    DL --> WR[Write Binary File<br/>(/workspace/data/slice.csv)]
+    IF -- "sim" --> DL["HTTP Request (download)"]
+    DL --> WR["Write Binary File<br/>(/workspace/data/slice.csv)"]
     IF -- "não" --> Exec
     WR --> Exec
   end
 
-  S0 -->|Gera/atualiza| S
-  S -. opcional (upload via Webhook) .-> WR
+  S0 -->|gera/atualiza| S -. upload via Webhook (opcional) .-> WR
   Exec -->|INPUT_CSV=/workspace/data/slice.csv| ETL
 
   %% ========= CONTAINER / PIPELINE =========
-  subgraph CTR[Container n8n-ai • venv /home/node/venv]
+  subgraph CTR["Container n8n-ai • venv /home/node/venv"]
     direction LR
-    ETL[etl.py<br/><sub>normaliza e enriquece</sub>] --> FEAT[features.py<br/><sub>escala p/ [0,1]</sub>] --> TRAIN[train_rbm.py<br/><sub>treina RBM</sub>] --> DET[detect_anomalies.py<br/><sub>erro de reconstrução (RE)</sub>] --> BUILD[build_ai_json.py<br/><sub>agrega resultados</sub>]
+    ETL["etl.py (normaliza e enriquece)"] --> FEAT["features.py (escala p/ [0,1])"] --> TRAIN["train_rbm.py (treina RBM)"] --> DET["detect_anomalias.py (erro de reconstrução - RE)"] --> BUILD["build_ai_json.py (agrega resultados)"]
   end
 
-  %% ========= ARTEFATOS =========
-  S2[/data/slice.csv/]
   CL[/data/clean.csv/]
   EXE[/data/execucoes.csv/]
   FE[/data/features.csv/]
   MOD1[[models/scalers.joblib]]
   MOD2[[models/rbm.joblib]]
   SC[/data/score.csv/]
-  OUT[[app/ai_analysis.json<br/>(final)]]
+  OUT[["app/ai_analysis.json<br/>(final)"]]
 
-  %% ========= ENTRADAS/SAÍDAS POR ETAPA =========
-  ETL <-- usa -- S2
-  ETL --> CL & EXE
+  S --> ETL
+  ETL --> CL
+  ETL --> EXE
 
-  FEAT <-- usa -- CL
+  CL --> FEAT
   FEAT --> FE
 
-  TRAIN <-- usa -- FE
-  TRAIN --> MOD1 & MOD2
+  FE --> TRAIN
+  TRAIN --> MOD1
+  TRAIN --> MOD2
 
-  DET <-- usa -- FE & MOD1 & MOD2
+  FE -. para DET .->
+  MOD1 -. para DET .->
+  MOD2 -. para DET .->
   DET --> SC
-  DET -. opcional resumo .-> OUT
+  DET -. resumo opcional .-> OUT
 
-  BUILD <-- usa -- EXE & SC
+  EXE --> BUILD
+  SC --> BUILD
   BUILD --> OUT
 
-  %% ========= CONSUMIDORES =========
   UI[[Frontend / index.html]]
-  API[[APIs / Integrações / n8n step]]
+  API[["APIs / Integrações / n8n step"]]
 
   OUT --> UI
   OUT --> API
 
-  %% ========= NOTA RBM =========
-  NOTE>Benefícios do RBM:<br/>• Não supervisionado (dispensa rótulos)<br/>• Aprende padrões não lineares<br/>• Score contínuo (RE) permite thresholds por job/projeto] --- OUT
+  NOTE["Benefícios do RBM:<br/>• Não supervisionado (dispensa rótulos)<br/>• Aprende padrões não lineares<br/>• Score contínuo (RE) permite thresholds por job/projeto"]
+  OUT --- NOTE
 ```
 
 ### Mini-mapa (apenas fluxo de arquivos)
