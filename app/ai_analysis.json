@@ -1,617 +1,1092 @@
 {
   "resumo": {
-    "total_execucoes": 299,
+    "total_execucoes": 22393259,
     "por_status": {
-      "failed": 288,
-      "success": 11
+      "failed": 21776802,
+      "success": 616457
     },
-    "duracao_media_s": 101.91973244147157,
-    "re_p95_global": 0.9351476830520357
+    "duracao_media_s": 131.25747824378757,
+    "re_p95_global": 0.4303878454264386
   },
   "risco_p95_por_job": [
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "re_p95": 0.9445340151927278
+      "projeto": "ELO-BUCKET_S3",
+      "job": "ELO-BUCKET_S3",
+      "re_p95": 0.5507416654723587
+    },
+    {
+      "projeto": "ELO-MANUT",
+      "job": "ELO-MANUT",
+      "re_p95": 0.5116047152133396
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "ELO_MIGRACAO_HIBRIDO",
+      "re_p95": 0.5042854548607179
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "ELO_FINANCEIRO",
+      "re_p95": 0.49891882042691
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "CADASTRO",
+      "re_p95": 0.49302123537883463
+    },
+    {
+      "projeto": "ELO_AZURE_STORAGE",
+      "job": "ELO_ALTA_RENDA",
+      "re_p95": 0.4860209811007285
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "BOLETIM",
+      "re_p95": 0.480496283293637
+    },
+    {
+      "projeto": "UNKNOWN",
+      "job": "UNKNOWN",
+      "re_p95": 0.48046511713526924
+    },
+    {
+      "projeto": "LIMPEZA_DIRETORIO",
+      "job": "PR_DI_SC_LIMPA_DIRETORIO_TMP",
+      "re_p95": 0.47736277565984514
     },
     {
       "projeto": "EFT_PRD",
       "job": "EFT_ASG",
-      "re_p95": 0.831291043567199
+      "re_p95": 0.4563248002324865
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "UNLIMINT",
+      "re_p95": 0.45310231631229025
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "LIQUIDACAO",
+      "re_p95": 0.45108127000887577
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "MULVI",
+      "re_p95": 0.4494755941175284
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "PICPAY",
+      "re_p95": 0.44888116558772206
+    },
+    {
+      "projeto": "TECBAN",
+      "job": "TECBAN",
+      "re_p95": 0.4460916376869623
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "PAN_PISMO",
+      "re_p95": 0.44569835513553246
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "WORLDPAY",
+      "re_p95": 0.44516681368323713
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "PEFISA",
+      "re_p95": 0.4449952118506575
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "SUMUP",
+      "re_p95": 0.4432907310353773
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "ENTREPAY",
+      "re_p95": 0.44294016451256196
+    },
+    {
+      "projeto": "ELO-EFT-CREDENCIADOR",
+      "job": "ADYEN",
+      "re_p95": 0.4395811097591786
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ALPHA_ONNIPRO",
+      "re_p95": 0.43874855484124053
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "BIZ",
+      "re_p95": 0.4386932220530973
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "VALLOO",
+      "re_p95": 0.43767661510439426
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "BB_BIZ",
+      "re_p95": 0.43714130011100916
+    },
+    {
+      "projeto": "ELO-BANDEIRA_BI",
+      "job": "ELO-BANDEIRA_BI",
+      "re_p95": 0.43640216013376326
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "FINANCEIRO",
+      "re_p95": 0.43463324996904923
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ALELO",
+      "re_p95": 0.43290153553812016
     },
     {
       "projeto": "PROCESSADORA",
       "job": "MULTIBENEFICIOS",
-      "re_p95": 0.7474891038628508
+      "re_p95": 0.4248650925183337
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "re_p95": 0.4248602293102009
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "EDENRED",
+      "re_p95": 0.42384366159641446
+    },
+    {
+      "projeto": "DINERS",
+      "job": "DINERS",
+      "re_p95": 0.4233569388388645
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "SWAP",
+      "re_p95": 0.4230511323782867
+    },
+    {
+      "projeto": "ELO-EFT-EMISSOR",
+      "job": "ONIBANK",
+      "re_p95": 0.4212188663810537
+    },
+    {
+      "projeto": "PROCESSADORA",
+      "job": "FICO",
+      "re_p95": 0.3767311971468259
     }
   ],
   "hotspots": [
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:35:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T04:40:00",
-      "status": "fail",
-      "duracao_s": 137.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:25:00",
-      "status": "fail",
-      "duracao_s": 145.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:00:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T18:35:00",
-      "status": "fail",
-      "duracao_s": 143.0,
-      "re": 0.9994176249955816
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T18:40:00",
-      "status": "fail",
-      "duracao_s": 88.0,
-      "re": 0.9993473621605719
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T10:00:00",
-      "status": "fail",
-      "duracao_s": 146.0,
-      "re": 0.9930336671053454
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T14:10:00",
-      "status": "fail",
-      "duracao_s": 152.0,
-      "re": 0.9806207457044591
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T00:15:00",
-      "status": "fail",
-      "duracao_s": 79.0,
-      "re": 0.9797390235605391
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:45:00",
-      "status": "fail",
-      "duracao_s": 85.0,
-      "re": 0.9672327181672509
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T16:00:00",
-      "status": "fail",
-      "duracao_s": 151.0,
-      "re": 0.9659611612898222
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "success",
+      "duracao_s": 141.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T04:50:00",
-      "status": "fail",
-      "duracao_s": 137.0,
-      "re": 0.9590153270889409
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:40:00",
-      "status": "fail",
-      "duracao_s": 147.0,
-      "re": 0.9561938715709953
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 131.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T07:10:00",
-      "status": "fail",
-      "duracao_s": 80.0,
-      "re": 0.9452845617042289
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T11:30:00",
-      "status": "fail",
-      "duracao_s": 173.0,
-      "re": 0.9431401430999403
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 73.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 83.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     }
   ],
   "top_amostras": [
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:35:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:00:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T04:40:00",
-      "status": "fail",
-      "duracao_s": 137.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:25:00",
-      "status": "fail",
-      "duracao_s": 145.0,
-      "re": 1.0
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T18:35:00",
-      "status": "fail",
-      "duracao_s": 143.0,
-      "re": 0.9994176249955816
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T18:40:00",
-      "status": "fail",
-      "duracao_s": 88.0,
-      "re": 0.9993473621605719
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T10:00:00",
-      "status": "fail",
-      "duracao_s": 146.0,
-      "re": 0.9930336671053454
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T14:10:00",
-      "status": "fail",
-      "duracao_s": 152.0,
-      "re": 0.9806207457044591
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T00:15:00",
-      "status": "fail",
-      "duracao_s": 79.0,
-      "re": 0.9797390235605391
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:45:00",
-      "status": "fail",
-      "duracao_s": 85.0,
-      "re": 0.9672327181672509
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T16:00:00",
-      "status": "fail",
-      "duracao_s": 151.0,
-      "re": 0.9659611612898222
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T04:50:00",
-      "status": "fail",
-      "duracao_s": 137.0,
-      "re": 0.9590153270889409
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:40:00",
-      "status": "fail",
-      "duracao_s": 147.0,
-      "re": 0.9561938715709953
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T07:10:00",
-      "status": "fail",
-      "duracao_s": 80.0,
-      "re": 0.9452845617042289
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T11:30:00",
-      "status": "fail",
-      "duracao_s": 173.0,
-      "re": 0.9431401430999403
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T07:05:00",
-      "status": "fail",
-      "duracao_s": 139.0,
-      "re": 0.9342596319356021
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:00:00",
-      "status": "fail",
-      "duracao_s": 148.0,
-      "re": 0.9275618282095323
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T17:35:00",
-      "status": "fail",
-      "duracao_s": 143.0,
-      "re": 0.9244613315835872
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T17:05:00",
-      "status": "fail",
-      "duracao_s": 84.0,
-      "re": 0.9243825958175442
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T09:45:00",
-      "status": "fail",
-      "duracao_s": 144.0,
-      "re": 0.9212159901732986
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T12:05:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 0.9043759615448751
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T08:50:00",
-      "status": "fail",
-      "duracao_s": 146.0,
-      "re": 0.9029748318757859
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T22:50:00",
-      "status": "fail",
-      "duracao_s": 132.0,
-      "re": 0.9005963308595628
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T01:05:00",
-      "status": "fail",
-      "duracao_s": 138.0,
-      "re": 0.895446434563444
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T17:00:00",
-      "status": "fail",
-      "duracao_s": 152.0,
-      "re": 0.8928128720114741
-    },
-    {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T20:30:00",
-      "status": "fail",
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
       "duracao_s": 78.0,
-      "re": 0.8862606344974788
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T18:50:00",
-      "status": "fail",
-      "duracao_s": 89.0,
-      "re": 0.8857278127310176
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T07:30:00",
-      "status": "fail",
-      "duracao_s": 91.0,
-      "re": 0.8808081215662528
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T14:25:00",
-      "status": "fail",
-      "duracao_s": 88.0,
-      "re": 0.8801086796035672
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T15:45:00",
-      "status": "fail",
-      "duracao_s": 150.0,
-      "re": 0.8748833577891528
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T01:40:00",
-      "status": "fail",
-      "duracao_s": 138.0,
-      "re": 0.8706723583192616
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T01:15:00",
-      "status": "fail",
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "success",
       "duracao_s": 141.0,
-      "re": 0.8706231099724968
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T00:00:00",
-      "status": "fail",
-      "duracao_s": 81.0,
-      "re": 0.8680123080850528
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T23:55:00",
-      "status": "fail",
-      "duracao_s": 81.0,
-      "re": 0.8673983319999806
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 131.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:10:00",
-      "status": "fail",
-      "duracao_s": 149.0,
-      "re": 0.8666162369085176
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T22:45:00",
-      "status": "fail",
-      "duracao_s": 144.0,
-      "re": 0.862250288692117
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T12:40:00",
-      "status": "fail",
-      "duracao_s": 146.0,
-      "re": 0.8617553626908273
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T21:55:00",
-      "status": "fail",
-      "duracao_s": 85.0,
-      "re": 0.8609262321851726
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T06:50:00",
-      "status": "fail",
-      "duracao_s": 144.0,
-      "re": 0.8565980253848677
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T14:50:00",
-      "status": "fail",
-      "duracao_s": 88.0,
-      "re": 0.8545239722958126
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T23:45:00",
-      "status": "fail",
-      "duracao_s": 67.0,
-      "re": 0.8532901799957979
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T08:05:00",
-      "status": "fail",
-      "duracao_s": 141.0,
-      "re": 0.8518444694402123
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 73.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-04T03:45:00",
-      "status": "fail",
-      "duracao_s": 81.0,
-      "re": 0.8496287901018968
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T14:05:00",
-      "status": "fail",
-      "duracao_s": 142.0,
-      "re": 0.8484056057306394
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T23:05:00",
-      "status": "fail",
-      "duracao_s": 84.0,
-      "re": 0.8476134023417687
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T17:30:00",
-      "status": "fail",
-      "duracao_s": 147.0,
-      "re": 0.8473027417861174
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T07:40:00",
-      "status": "fail",
-      "duracao_s": 84.0,
-      "re": 0.8460692441658633
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T19:50:00",
-      "status": "fail",
-      "duracao_s": 147.0,
-      "re": 0.8422031914056107
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "ELO-BANDEIRA_BI",
-      "job": "ELO-BANDEIRA_BI",
-      "exec_id": "",
-      "inicio": "2025-09-03T11:30:00",
-      "status": "fail",
-      "duracao_s": 174.0,
-      "re": 0.841997003692578
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
     },
     {
-      "projeto": "EFT_PRD",
-      "job": "EFT_ASG",
-      "exec_id": "",
-      "inicio": "2025-09-03T13:30:00",
-      "status": "fail",
-      "duracao_s": 157.0,
-      "re": 0.8382112779959783
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 83.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 78.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 135.0,
+      "re": 0.7694484937951072
+    },
+    {
+      "projeto": "TOKENIZACAO",
+      "job": "TOKENIZACAO",
+      "exec_id": "8a3ba5e39447b7ab",
+      "inicio": "2025-01-09T13:49:00",
+      "status": "failed",
+      "duracao_s": 134.0,
+      "re": 0.7694484937951072
     }
   ]
 }

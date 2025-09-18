@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rundeck AI – Painel Executivo (RBM)</title>
+  <meta name="description" content="Painel estático: consome app/ai_analysis.json e exibe KPIs, gráficos 3D e listas de insights executivos." />
+  <style>
+    :root{--fg:#0f172a;--muted:#94a3b8;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    h1,h2{margin:.2rem 0 1rem} h1{font-size:1.6rem} h2{font-size:1.1rem}
+    .container{max-width:1260px;margin:0 auto;padding:16px}
+    .header{display:flex;flex-direction:column;gap:.4rem;border-bottom:1px solid var(--line)}
+    .sub{color:var(--muted);margin:.2rem 0}
+    .badge{background:#132038;border:1px solid var(--line);padding:.2rem .5rem;border-radius:999px;color:#a5b4fc;font-size:.75rem}
+    .pill{display:inline-block;padding:.15rem .5rem;border:1px solid #32507a;border-radius:999px;font-size:.72rem;color:#9ac1ff}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:980px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+    .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    @media(min-width:980px){.kpis{grid-template-columns:repeat(7,minmax(0,1fr))}}
+    .kpi{background:#0b1220;border:1px solid var(--line);border-radius:10px;padding:10px}
+    .kpi-label{color:#94a3b8;font-size:.78rem}
+    .kpi-value{font-size:1.22rem;font-weight:700}
+    .kpi-foot{color:#94a3b8;font-size:.70rem;margin-top:2px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
+    table{width:100%;border-collapse:collapse;font-size:.92rem}
+    thead{background:#0b1220;color:#cbd5e1}
+    th,td{padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
+    tr:hover td{background:#0b1220}
+    .footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:16px}
+    .ghost{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:.5rem .8rem;cursor:pointer}
+    .ghost:hover{border-color:#334155;background:#101a2d}
+    .hint{color:#94a3b8;text-align:center;padding:14px}
+    .insights{display:grid;grid-template-columns:1fr;gap:12px}
+    .insight{background:#0b1220;border:1px dashed #2a3a55;border-radius:10px;padding:10px}
+    .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .grow{flex:1 1 320px}
+    .plot{width:100%;height:420px}
+    .note{color:#9ab8d7;font-size:.8rem;margin-top:6px}
+    .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:10px 0}
+    @media(min-width:980px){.controls{grid-template-columns:repeat(6,1fr)}}
+    .controls label{font-size:.78rem;color:#9fb4cf}
+    .controls .field{display:flex;flex-direction:column;gap:6px}
+    select, input[type="date"], input[type="checkbox"]{background:#0b1220;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:.45rem}
+    .tog{display:flex;align-items:center;gap:6px}
+  </style>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+</head>
+<body>
+  <header class="container header">
+    <h1>Rundeck AI – Painel Executivo</h1>
+    <p class="sub">Modelo: BernoulliRBM · Fonte: /app/ai_analysis.json · Render estático</p>
+    <div class="flex">
+      <span class="badge" id="badge-updated" title="Última atualização do ai_analysis.json">Atualizando…</span>
+      <span class="pill">RE = Reconstruction Error</span>
+      <span class="pill">Plano z = p95 global</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- CONTROLES -->
+    <section class="card">
+      <h2>Filtros</h2>
+      <div class="controls">
+        <div class="field">
+          <label for="date-from">De</label>
+          <input type="date" id="date-from" />
+        </div>
+        <div class="field">
+          <label for="date-to">Até</label>
+          <input type="date" id="date-to" />
+        </div>
+        <div class="field">
+          <label for="sel-proj">Projeto (Sub-Application)</label>
+          <select id="sel-proj"><option value="">Todos</option></select>
+        </div>
+        <div class="field">
+          <label for="sel-job">Job</label>
+          <select id="sel-job"><option value="">Todos</option></select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <div class="tog"><input type="checkbox" id="chk-success" checked /><span>Sucesso</span></div>
+          <div class="tog"><input type="checkbox" id="chk-fail" checked /><span>Falha</span></div>
+        </div>
+        <div class="field">
+          <label>Opções</label>
+          <div class="tog"><input type="checkbox" id="chk-plane" checked /><span>Exibir plano p95</span></div>
+          <div class="tog"><input type="checkbox" id="chk-group" checked /><span>Agrupar hotspots por projeto</span></div>
+        </div>
+      </div>
+      <div class="flex">
+        <button id="btn-apply" class="ghost" type="button">Aplicar filtros</button>
+        <button id="btn-clear" class="ghost" type="button">Limpar</button>
+      </div>
+    </section>
+
+    <!-- KPIs -->
+    <section aria-labelledby="kpis-title" class="card">
+      <h2 id="kpis-title">Resumo</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-label">Execuções (total)</div><div class="kpi-value" id="kpi-total">–</div></div>
+        <div class="kpi"><div class="kpi-label">Falhas</div><div class="kpi-value" id="kpi-failed">–</div><div class="kpi-foot" id="kpi-failrate">–</div></div>
+        <div class="kpi"><div class="kpi-label">Sucessos</div><div class="kpi-value" id="kpi-success">–</div></div>
+        <div class="kpi"><div class="kpi-label">Duração média (s)</div><div class="kpi-value" id="kpi-avgdur">–</div></div>
+        <div class="kpi"><div class="kpi-label">RE p95 global</div><div class="kpi-value" id="kpi-re95">–</div></div>
+        <div class="kpi"><div class="kpi-label">Hotspots avaliados</div><div class="kpi-value" id="kpi-hotcnt">–</div></div>
+        <div class="kpi"><div class="kpi-label">Jobs com maior p95</div><div class="kpi-value" id="kpi-topjobs">–</div><div class="kpi-foot" id="kpi-topjobs-names">–</div></div>
+      </div>
+    </section>
+
+    <!-- Gráficos 3D -->
+    <section class="row">
+      <div class="card grow">
+        <h2>Mapa 3D de Hotspots (Tempo × Duração × RE)</h2>
+        <div id="plot-hotspots" class="plot" role="img" aria-label="Dispersão 3D de hotspots por tempo, duração e RE"></div>
+        <div class="note">Objetivo: localizar regiões de risco (RE alto) e outliers de duração. Use o mouse para girar/zoom.</div>
+      </div>
+      <div class="card grow">
+        <h2>Risco p95 por Job (3D)</h2>
+        <div id="plot-p95" class="plot" role="img" aria-label="Gráfico 3D de p95 de RE por job com volume de ocorrências"></div>
+        <div class="note">Bolha maior = mais ocorrências; eixo Z = p95 de RE do job. Plano z = p95 global como referência.</div>
+      </div>
+    </section>
+
+    <!-- Insights executivos -->
+    <section class="card">
+      <h2>Insights</h2>
+      <div class="insights" id="insights"></div>
+    </section>
+
+    <!-- Tabelas -->
+    <section class="card">
+      <h2>Top Hotspots</h2>
+      <div class="table-wrap">
+        <table id="tbl-hotspots">
+          <thead>
+            <tr>
+              <th>Projeto</th><th>Job</th><th>Exec ID</th>
+              <th>Início</th><th>Status</th><th>Duração (s)</th><th>RE</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© 2025 • Rundeck AI Panel • RBM</span>
+    <div class="flex">
+      <button id="btn-reload" class="ghost" type="button">Recarregar dados</button>
+      <button id="btn-export" class="ghost" type="button">Exportar hotspots (.csv)</button>
+    </div>
+  </footer>
+
+  <script type="module">
+    const $ = (sel) => document.querySelector(sel);
+    const fmt = (v, d=0) => (v ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: d, minimumFractionDigits: d });
+    const esc = (s) => (s ?? '').toString().replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const toNum = (v, fb=0) => { if (v==null) return fb; if (typeof v==='string') v=v.replace(',', '.').replace(/[^0-9eE.\-+]/g,''); const n=Number(v); return Number.isFinite(n)?n:fb; };
+
+    const DATA_URL = new URL('./app/ai_analysis.json?ts=' + Date.now(), document.baseURI);
+
+    let raw = null;
+    let filtered = null;
+
+    async function loadData() {
+      setStatus('Atualizando…');
+      try {
+        const res = await fetch(DATA_URL, { cache: 'no-store', credentials: 'same-origin', headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('Falha ao carregar ai_analysis.json: ' + res.status);
+        raw = await res.json();
+        hydrateSelectors(raw);
+        applyFilters();
+        setStatus('Atualizado');
+      } catch (e) {
+        console.error(e);
+        setStatus('Erro ao carregar dados');
+      }
+    }
+
+    function setStatus(text) { $('#badge-updated').textContent = text; }
+
+    // ---- Filtros ----
+    function hydrateSelectors(d){
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const projetos = [...new Set(hot.map(x => String(x.projeto||'').trim()).filter(Boolean))].sort();
+      const jobs = [...new Set(hot.map(x => String(x.job||'').trim()).filter(Boolean))].sort();
+
+      const projSel = $('#sel-proj'); projSel.innerHTML = '<option value=\"\">Todos</option>' + projetos.map(p=>`<option>${esc(p)}</option>`).join('');
+      const jobSel  = $('#sel-job');  jobSel.innerHTML  = '<option value=\"\">Todos</option>' + jobs.map(p=>`<option>${esc(p)}</option>`).join('');
+
+      // Datas padrão (amplitude total dos hotspots)
+      const times = hot.map(h => Date.parse(h.inicio||''))
+                       .filter(v => Number.isFinite(v))
+                       .sort((a,b)=>a-b);
+      if (times.length){
+        const from = new Date(times[0]), to = new Date(times[times.length-1]);
+        $('#date-from').value = toInputDate(from);
+        $('#date-to').value   = toInputDate(to);
+      }
+    }
+
+    function getFilters(){
+      const f = {
+        from: parseInputDate($('#date-from').value),
+        to:   endOfDay(parseInputDate($('#date-to').value)),
+        proj: $('#sel-proj').value.trim(),
+        job:  $('#sel-job').value.trim(),
+        ok:   $('#chk-success').checked,
+        fail: $('#chk-fail').checked,
+        plane: $('#chk-plane').checked,
+        group: $('#chk-group').checked
+      };
+      return f;
+    }
+
+    function applyFilters(){
+      const d = raw || {};
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+      const resumo = d?.resumo || {};
+      const re95g  = toNum(resumo.re_p95_global ?? 0);
+
+      const f = getFilters();
+      const sel = hot.filter(h => {
+        const t = Date.parse(h.inicio||'');
+        const inDate = !Number.isFinite(t) || (!f.from || t >= f.from) && (!f.to || t <= f.to);
+        const inProj = !f.proj || String(h.projeto||'') === f.proj;
+        const inJob  = !f.job  || String(h.job||'') === f.job;
+        const st = String(h.status||'').toLowerCase();
+        const inStatus = (f.ok && st.startsWith('suc')) || (f.fail && st.startsWith('fail'));
+        return inDate && inProj && inJob && inStatus;
+      });
+
+      filtered = { resumo, hot: sel, p95jobs, re95g, options: f };
+      renderAll(filtered);
+    }
+
+    // Dates helpers
+    function toInputDate(d){ if(!d) return ''; const p = (n)=> String(n).padStart(2,'0'); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+    function parseInputDate(s){ if(!s) return null; const [Y,M,D] = s.split('-').map(Number); return Date.UTC(Y,M-1,D,0,0,0); }
+    function endOfDay(ts){ if(!ts) return null; return ts + 24*60*60*1000 - 1; }
+
+    // ---- Renderização ----
+    function renderAll(f) {
+      const total = toNum(raw?.resumo?.total_execucoes);
+      const failed = toNum(raw?.resumo?.por_status?.failed);
+      const success = toNum(raw?.resumo?.por_status?.success ?? (total - failed));
+      const avgDur = toNum(raw?.resumo?.duracao_media_s, 0);
+      const re95g  = toNum(f?.re95g, 0);
+
+      // KPIs (mantemos os globais; hotspots mostra efeito do filtro nas tabelas e plots)
+      $('#kpi-total').textContent   = fmt(total);
+      $('#kpi-failed').textContent  = fmt(failed);
+      $('#kpi-success').textContent = fmt(success);
+      $('#kpi-avgdur').textContent  = fmt(avgDur, 0);
+      $('#kpi-re95').textContent    = fmt(re95g, 3);
+      $('#kpi-failrate').textContent= total ? (failed/total*100).toFixed(1) + '% falha' : '–';
+
+      // Top jobs por p95
+      const p95jobs = f?.p95jobs || [];
+      const topNames = p95jobs.slice(0,3).map(j => j.job).join(', ') || '—';
+      $('#kpi-topjobs').textContent = p95jobs.length ? fmt(p95jobs.length) : '0';
+      $('#kpi-topjobs-names').textContent = topNames;
+
+      // Tabela hotspots (filtrados; primeiras 50 linhas)
+      const hot = f?.hot || [];
+      $('#kpi-hotcnt').textContent = fmt(hot.length);
+      const tbody = $('#tbl-hotspots tbody');
+      tbody.innerHTML = '';
+      (hot.slice(0,50)).forEach(s => {
+        tbody.insertAdjacentHTML('beforeend', `
+          <tr>
+            <td>${esc(s.projeto)}</td>
+            <td>${esc(s.job)}</td>
+            <td>${esc(s.exec_id ?? '')}</td>
+            <td>${esc(s.inicio ?? '')}</td>
+            <td>${esc(s.status ?? '')}</td>
+            <td>${fmt(toNum(s.duracao_s ?? s.duracao ?? 0))}</td>
+            <td>${fmt(toNum(s.re ?? s.risco ?? 0), 3)}</td>
+          </tr>`);
+      });
+
+      render3D(hot, p95jobs, re95g, f?.options || {});
+      renderInsights({resumo: raw?.resumo, hotspots: hot, risco_p95_por_job: p95jobs});
+    }
+
+    function render3D(hot, p95jobs, re95g, opts){
+      // -------- Plot 1: Hotspots 3D --------
+      const maxPoints = 1500;
+      const arr = hot.slice(0, maxPoints).map((x,i)=> ({
+        t: Date.parse(x.inicio || '') || (i*60*1000),
+        dur: toNum(x.duracao_s ?? x.duracao ?? 0),
+        re: toNum(x.re ?? x.risco ?? 0),
+        status: String(x.status || 'n/a'),
+        projeto: String(x.projeto || ''),
+        job: String(x.job || ''),
+        exec: String(x.exec_id || '')
+      }));
+
+      let traces = [];
+      if (opts.group){
+        const groups = groupBy(arr, (o)=>o.projeto || '—');
+        traces = Object.entries(groups).map(([proj, items]) => ({
+          type: 'scatter3d',
+          mode: 'markers',
+          name: proj,
+          x: items.map(o=>o.t),
+          y: items.map(o=>o.dur),
+          z: items.map(o=>o.re),
+          text: items.map(o=>`<b>${proj}</b> / ${o.job}<br>exec: ${o.exec}<br>status: ${o.status}<br>duração: ${o.dur}s<br>RE: ${o.re.toFixed?.(3)}`),
+          hovertemplate: '%{text}<extra></extra>',
+          marker: { size: 4, opacity: 0.9 }
+        }));
+      } else {
+        traces = [{
+          type: 'scatter3d', mode: 'markers', name: 'Hotspots',
+          x: arr.map(o=>o.t), y: arr.map(o=>o.dur), z: arr.map(o=>o.re),
+          text: arr.map(o=>`${o.projeto} / ${o.job}<br>exec: ${o.exec}<br>${o.status} • ${o.dur}s • RE ${o.re.toFixed?.(3)}`),
+          hovertemplate: '%{text}<extra></extra>',
+          marker: { size: 4, opacity: 0.9 }
+        }];
+      }
+
+      const timeTicks = approximateTimeTicks(arr.map(a=>a.t));
+      const layout1 = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        scene: {
+          xaxis: { title: 'Tempo', tickvals: timeTicks.vals, ticktext: timeTicks.labels, gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          yaxis: { title: 'Duração (s)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          zaxis: { title: 'RE', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          bgcolor: 'rgba(0,0,0,0)',
+        },
+        legend: { orientation:'h', y: -0.2, font:{color:'#cbd5e1'} },
+        margin: { l:0, r:0, t:0, b:0 },
+      };
+
+      // Plano z = re95g (referência)
+      if (opts.plane && Number.isFinite(re95g) && re95g>0){
+        const xgrid = timeTicks.vals.length ? timeTicks.vals : [Date.now()-3600e3, Date.now()+3600e3];
+        const ygrid = linspace(0, Math.max(1, Math.max(0, ...arr.map(o=>o.dur))), 6);
+        const zgrid = Array.from({length:ygrid.length}, _ => Array.from({length:xgrid.length}, __ => re95g));
+        traces.push({
+          type: 'surface',
+          showscale: false,
+          opacity: 0.25,
+          x: xgrid, y: ygrid, z: zgrid,
+          name: 'Plano p95 global'
+        });
+      }
+
+      Plotly.newPlot('plot-hotspots', traces, layout1, {displayModeBar:true, responsive:true});
+
+      // -------- Plot 2: p95 por Job (bolhas 3D) + plano --------
+      const counts = countBy(hot, (x)=> String(x.job || '—'));
+      const items = p95jobs.map((j, idx) => ({
+        idx, job: String(j.job), proj: String(j.projeto || ''),
+        re95: toNum(j.re_p95 ?? j.p95 ?? j.reP95 ?? 0),
+        vol: counts[j.job] ?? 0
+      }));
+
+      const trace2 = [{
+        type: 'scatter3d', mode: 'markers', name: 'Jobs',
+        x: items.map(o=>o.idx), y: items.map(o=>o.vol), z: items.map(o=>o.re95),
+        text: items.map(o=>`<b>${o.job}</b> (${o.proj})<br>ocorrências: ${o.vol}<br>p95 RE: ${o.re95.toFixed?.(3)}`),
+        hovertemplate: '%{text}<extra></extra>',
+        marker: { size: items.map(o=> Math.max(4, Math.min(30, Math.sqrt(o.vol||1)*3))), opacity:0.9 }
+      }];
+
+      if (opts.plane && Number.isFinite(re95g) && re95g>0){
+        const xgrid = linspace(0, Math.max(1, items.length-1), 6);
+        const ygrid = linspace(0, Math.max(1, Math.max(0,...items.map(i=>i.vol))), 6);
+        const zgrid = Array.from({length:ygrid.length}, _ => Array.from({length:xgrid.length}, __ => re95g));
+        trace2.push({ type:'surface', showscale:false, opacity:0.25, x:xgrid, y:ygrid, z:zgrid, name:'Plano p95 global' });
+      }
+
+      const layout2 = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        scene: {
+          xaxis: { title: 'Job (índice)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          yaxis: { title: 'Ocorrências (hotspots)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          zaxis: { title: 'RE p95', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          bgcolor: 'rgba(0,0,0,0)',
+        },
+        margin: { l:0, r:0, t:0, b:0 }
+      };
+
+      Plotly.newPlot('plot-p95', trace2, layout2, {displayModeBar:true, responsive:true});
+    }
+
+    function renderInsights(d){
+      const out = $('#insights'); out.innerHTML = '';
+      const resumo = d?.resumo || {};
+      const total = toNum(resumo.total_execucoes ?? resumo.registros);
+      const failed = toNum(resumo.por_status?.failed ?? resumo.falhas);
+      const re95g = toNum(resumo.re_p95_global ?? 0);
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+
+      const failRate = total ? failed/total : 0;
+      const highRiskJobs = p95jobs.filter(j => toNum(j.re_p95) >= re95g).map(j => j.job);
+
+      const insights = [];
+      if (total) insights.push(`Volume analisado: ${total.toLocaleString('pt-BR')} execuções; taxa de falha ${(failRate*100).toFixed(1)}%.`);
+      if (highRiskJobs.length) insights.push(`Jobs acima do patamar global de risco (RE p95 ≥ ${re95g.toFixed(3)}): ${highRiskJobs.slice(0,5).join(', ')}${highRiskJobs.length>5?'…':''}.`);
+      if (hot.length) {
+        const worst = [...hot].sort((a,b)=> toNum(b.re)-toNum(a.re)).slice(0,1)[0];
+        if (worst) insights.push(`Maior RE (filtro): ${toNum(worst.re).toFixed(3)} no job ${worst.job} (${worst.projeto}), duração ${toNum(worst.duracao_s).toFixed(0)}s.`);
+      }
+      if (!insights.length) insights.push('Não há insights relevantes com os filtros atuais.');
+
+      for (const txt of insights) {
+        out.insertAdjacentHTML('beforeend', `<div class="insight">${esc(txt)}</div>`);
+      }
+    }
+
+    function groupBy(arr, keyFn){
+      const m = new Map();
+      for (const it of arr){ const k = keyFn(it); if(!m.has(k)) m.set(k, []); m.get(k).push(it); }
+      return Object.fromEntries(m);
+    }
+    function countBy(arr, keyFn){
+      const m = new Map();
+      for (const it of arr){ const k = keyFn(it); m.set(k, (m.get(k)||0)+1); }
+      return Object.fromEntries(m);
+    }
+    function approximateTimeTicks(times){
+      if(!times.length) return {vals:[], labels:[]};
+      const min = Math.min(...times), max = Math.max(...times);
+      const span = Math.max(1, max-min);
+      const steps = 5;
+      const vals = Array.from({length:steps}, (_,i)=> Math.round(min + i*span/(steps-1)));
+      const labels = vals.map(v=> new Date(v).toLocaleString('pt-BR'));
+      return {vals, labels};
+    }
+    function linspace(a,b,n){
+      if (n<=1) return [a];
+      const step=(b-a)/(n-1); return Array.from({length:n}, (_,i)=> a + i*step);
+    }
+
+    function exportCSV(){
+      if(!filtered) return;
+      const hot = Array.isArray(filtered.hot) ? filtered.hot : [];
+      const cols = ['projeto','job','exec_id','inicio','status','duracao_s','re'];
+      const header = cols.join(',');
+      const lines = hot.map(r => [
+        r.projeto, r.job, r.exec_id, r.inicio, r.status, r.duracao_s ?? r.duracao ?? '', r.re ?? r.risco ?? ''
+      ].map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(','));
+      const csv = [header].concat(lines).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'hotspots_filtrados.csv'; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    $('#btn-reload').addEventListener('click', loadData);
+    $('#btn-export').addEventListener('click', exportCSV);
+    $('#btn-apply').addEventListener('click', applyFilters);
+    $('#btn-clear').addEventListener('click', () => { hydrateSelectors(raw); $('#sel-proj').value=''; $('#sel-job').value=''; $('#chk-success').checked=true; $('#chk-fail').checked=true; $('#chk-plane').checked=true; $('#chk-group').checked=true; applyFilters(); });
+    window.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
