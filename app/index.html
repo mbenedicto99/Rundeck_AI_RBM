@@ -3,44 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rundeck AI – Falhas x Alto Tempo (RBM)</title>
-  <meta name="description" content="Painel estático que consome /app/ai_analysis.json e exibe KPIs, hotspots e amostras de risco." />
+  <title>Rundeck AI – Painel Executivo (RBM)</title>
+  <meta name="description" content="Painel estático: consome app/ai_analysis.json e exibe KPIs, gráficos 3D e listas de insights executivos." />
   <style>
-    :root{--fg:#0f172a;--muted:#475569;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041;--acc:#7dd3fc}
+    :root{--fg:#0f172a;--muted:#94a3b8;--bg:#0b1220;--card:#0f172a;--ink:#e2e8f0;--line:#243041;--acc:#7dd3fc}
     *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;background:#0b1220;color:#e2e8f0;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    h1,h2{margin:.2rem 0 1rem} h1{font-size:1.5rem} h2{font-size:1.1rem}
-    .container{max-width:1200px;margin:0 auto;padding:16px}
+    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    h1,h2{margin:.2rem 0 1rem} h1{font-size:1.6rem} h2{font-size:1.1rem}
+    .container{max-width:1260px;margin:0 auto;padding:16px}
     .header{display:flex;flex-direction:column;gap:.4rem;border-bottom:1px solid var(--line)}
     .sub{color:var(--muted);margin:.2rem 0}
     .badge{background:#132038;border:1px solid var(--line);padding:.2rem .5rem;border-radius:999px;color:#a5b4fc;font-size:.75rem}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:920px){.grid{grid-template-columns:1fr 1fr}}
-    .card{background:#0f172a;border:1px solid var(--line);border-radius:12px;padding:14px}
+    @media(min-width:980px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
     .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    @media(min-width:920px){.kpis{grid-template-columns:repeat(7,minmax(0,1fr))}}
+    @media(min-width:980px){.kpis{grid-template-columns:repeat(7,minmax(0,1fr))}}
     .kpi{background:#0b1220;border:1px solid var(--line);border-radius:10px;padding:10px}
-    .kpi-label{color:#94a3b8;font-size:.75rem}
-    .kpi-value{font-size:1.2rem;font-weight:600}
+    .kpi-label{color:#94a3b8;font-size:.78rem}
+    .kpi-value{font-size:1.22rem;font-weight:700}
+    .kpi-foot{color:#94a3b8;font-size:.70rem;margin-top:2px}
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
-    table{width:100%;border-collapse:collapse;font-size:.9rem}
+    table{width:100%;border-collapse:collapse;font-size:.92rem}
     thead{background:#0b1220;color:#cbd5e1}
     th,td{padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
     tr:hover td{background:#0b1220}
     .footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:16px}
-    .ghost{background:transparent;border:1px solid var(--line);color:#e2e8f0;border-radius:8px;padding:.5rem .8rem;cursor:pointer}
+    .ghost{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:.5rem .8rem;cursor:pointer}
     .ghost:hover{border-color:#334155;background:#101a2d}
     .hint{color:#94a3b8;text-align:center;padding:14px}
-    canvas{width:100%;height:340px}
+    .insights{display:grid;grid-template-columns:1fr;gap:12px}
+    .insight{background:#0b1220;border:1px dashed #2a3a55;border-radius:10px;padding:10px}
+    .pill{display:inline-block;padding:.15rem .5rem;border:1px solid #32507a;border-radius:999px;font-size:.72rem;color:#9ac1ff}
+    .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .grow{flex:1 1 320px}
+    .plot{width:100%;height:420px}
+    .note{color:#9ab8d7;font-size:.8rem;margin-top:6px}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
 </head>
 <body>
   <header class="container header">
-    <h1>Rundeck AI – Falhas x Alto Tempo</h1>
-    <p class="sub">Modelo: BernoulliRBM · Fonte: /app/ai_analysis.json · Build estático</p>
-    <div class="badges">
+    <h1>Rundeck AI – Painel Executivo</h1>
+    <p class="sub">Modelo: BernoulliRBM · Fonte: /app/ai_analysis.json · Render estático</p>
+    <div class="flex">
       <span class="badge" id="badge-updated" title="Última atualização do ai_analysis.json">Atualizando…</span>
+      <span class="pill">RE = Reconstruction Error</span>
+      <span class="pill">p95 = Percentil 95</span>
     </div>
   </header>
 
@@ -49,28 +59,34 @@
     <section aria-labelledby="kpis-title" class="card">
       <h2 id="kpis-title">Resumo</h2>
       <div class="kpis">
-        <div class="kpi"><div class="kpi-label">Registros</div><div class="kpi-value" id="kpi-total">–</div></div>
-        <div class="kpi"><div class="kpi-label">Falhas</div><div class="kpi-value" id="kpi-failed">–</div></div>
-        <div class="kpi"><div class="kpi-label">Alto tempo</div><div class="kpi-value" id="kpi-high">–</div></div>
-        <div class="kpi"><div class="kpi-label">Eventos cruzados</div><div class="kpi-value" id="kpi-cross">–</div></div>
-        <div class="kpi"><div class="kpi-label">Taxa cruzada</div><div class="kpi-value" id="kpi-cross-rate">–</div></div>
-        <div class="kpi"><div class="kpi-label">ϕ (falha×alto)</div><div class="kpi-value" id="kpi-phi">–</div></div>
-        <div class="kpi"><div class="kpi-label">Lift P(falha|alto)</div><div class="kpi-value" id="kpi-lift">–</div></div>
+        <div class="kpi"><div class="kpi-label">Execuções (total)</div><div class="kpi-value" id="kpi-total">–</div></div>
+        <div class="kpi"><div class="kpi-label">Falhas</div><div class="kpi-value" id="kpi-failed">–</div><div class="kpi-foot" id="kpi-failrate">–</div></div>
+        <div class="kpi"><div class="kpi-label">Sucessos</div><div class="kpi-value" id="kpi-success">–</div></div>
+        <div class="kpi"><div class="kpi-label">Duração média (s)</div><div class="kpi-value" id="kpi-avgdur">–</div></div>
+        <div class="kpi"><div class="kpi-label">RE p95 global</div><div class="kpi-value" id="kpi-re95">–</div></div>
+        <div class="kpi"><div class="kpi-label">Hotspots avaliados</div><div class="kpi-value" id="kpi-hotcnt">–</div></div>
+        <div class="kpi"><div class="kpi-label">Jobs com maior p95</div><div class="kpi-value" id="kpi-topjobs">–</div><div class="kpi-foot" id="kpi-topjobs-names">–</div></div>
       </div>
     </section>
 
-    <!-- Gráficos -->
-    <section class="grid">
-      <div class="card">
-        <h2>Hotspots por Job (Eventos Cruzados)</h2>
-        <canvas id="chartHotspots" aria-label="Barras de eventos cruzados por job" role="img"></canvas>
-        <div id="hintHotspots" class="hint" hidden>Sem dados</div>
+    <!-- Gráficos 3D -->
+    <section class="row">
+      <div class="card grow">
+        <h2>Mapa 3D de Hotspots (Tempo × Duração × RE)</h2>
+        <div id="plot-hotspots" class="plot" role="img" aria-label="Dispersão 3D de hotspots por tempo, duração e RE"></div>
+        <div class="note">Objetivo: localizar regiões de risco (RE alto) e outliers de duração. Use o mouse para girar/zoom.</div>
       </div>
-      <div class="card">
-        <h2>Risco Médio por Job (p95 como referência)</h2>
-        <canvas id="chartRisk" aria-label="Risco médio e p95 por job" role="img"></canvas>
-        <div id="hintRisk" class="hint" hidden>Sem dados</div>
+      <div class="card grow">
+        <h2>Risco p95 por Job (3D)</h2>
+        <div id="plot-p95" class="plot" role="img" aria-label="Gráfico 3D de p95 de RE por job com volume de ocorrências"></div>
+        <div class="note">Bolha maior = mais ocorrências; eixo Z = p95 de RE do job.</div>
       </div>
+    </section>
+
+    <!-- Insights executivos -->
+    <section class="card">
+      <h2>Insights</h2>
+      <div class="insights" id="insights"></div>
     </section>
 
     <!-- Tabelas -->
@@ -80,23 +96,8 @@
         <table id="tbl-hotspots">
           <thead>
             <tr>
-              <th>Projeto</th><th>Job</th><th>Eventos</th>
-              <th>Risco médio</th><th>Risco p95</th><th>Duração média (s)</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Top Amostras de Maior Risco</h2>
-      <div class="table-wrap">
-        <table id="tbl-samples">
-          <thead>
-            <tr>
               <th>Projeto</th><th>Job</th><th>Exec ID</th>
-              <th>Início</th><th>Status</th><th>Duração (s)</th><th>Risco</th>
+              <th>Início</th><th>Status</th><th>Duração (s)</th><th>RE</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -107,168 +108,221 @@
 
   <footer class="container footer">
     <span>© 2025 • Rundeck AI Panel • RBM</span>
-    <button id="btn-reload" class="ghost" type="button">Recarregar dados</button>
+    <div class="flex">
+      <button id="btn-reload" class="ghost" type="button">Recarregar dados</button>
+      <button id="btn-export" class="ghost" type="button">Exportar hotspots (.csv)</button>
+    </div>
   </footer>
 
-  <!-- Script principal -->
   <script type="module">
     const $ = (sel) => document.querySelector(sel);
     const fmt = (v, d=0) => (v ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: d, minimumFractionDigits: d });
+    const esc = (s) => (s ?? '').toString().replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const toNum = (v, fb=0) => { if (v==null) return fb; if (typeof v==='string') v=v.replace(',', '.').replace(/[^0-9eE.\-+]/g,''); const n=Number(v); return Number.isFinite(n)?n:fb; };
 
-    // Sanear números: aceita "0,9", remove lixo, trata NaN/Infinity/null
-    const toNum = (v, fallback=0) => {
-      if (v === null || v === undefined) return fallback;
-      if (typeof v === 'string') v = v.replace(',', '.').replace(/[^0-9eE.\-+]/g, '');
-      const n = Number(v);
-      return Number.isFinite(n) ? n : fallback;
-    };
-
-    // URL local (mesmo domínio). Usa baseURI para funcionar em subcaminhos do Amplify.
     const DATA_URL = new URL('./app/ai_analysis.json?ts=' + Date.now(), document.baseURI);
 
-    let chartHotspots, chartRisk;
+    let raw = null;
 
     async function loadData() {
       setStatus('Atualizando…');
       try {
-        const res = await fetch(DATA_URL, { cache: 'no-store', credentials: 'same-origin', headers: { 'Accept': 'application/json' }});
+        const res = await fetch(DATA_URL, { cache: 'no-store', credentials: 'same-origin', headers: { 'Accept': 'application/json' } });
         if (!res.ok) throw new Error('Falha ao carregar ai_analysis.json: ' + res.status);
-        const data = await res.json();
-        renderAll(data);
+        raw = await res.json();
+        renderAll(raw);
         setStatus('Atualizado');
       } catch (e) {
         console.error(e);
         setStatus('Erro ao carregar dados');
-        renderAll(null);
       }
     }
 
     function setStatus(text) { $('#badge-updated').textContent = text; }
 
     function renderAll(d) {
-      // -------- KPIs --------
-      const r = d?.resumo || {};
-      $('#kpi-total').textContent      = fmt(toNum(r.registros));
-      $('#kpi-failed').textContent     = fmt(toNum(r.falhas));
-      $('#kpi-high').textContent       = fmt(toNum(r.alto_tempo ?? r.altoTempo));
-      $('#kpi-cross').textContent      = fmt(toNum(r.eventos_cruzados ?? r.eventosCruzados));
-      $('#kpi-cross-rate').textContent = fmt(toNum(r.taxa_cruzada ?? r.taxaCruzada, 2), 2);
-      $('#kpi-phi').textContent        = fmt(toNum(r.phi ?? r['phi_falha_alto'] ?? r.phi_falha_alto, 3), 3);
-      $('#kpi-lift').textContent       = fmt(toNum(r.lift ?? r.lift_falha_alto ?? r['lift_falha_alto'], 2), 2);
+      const resumo = d?.resumo || {};
+      const total = toNum(resumo.total_execucoes ?? resumo.registros);
+      const failed = toNum(resumo.por_status?.failed ?? resumo.falhas);
+      const success = toNum(resumo.por_status?.success ?? resumo.sucesso ?? (total - failed));
+      const avgDur = toNum(resumo.duracao_media_s ?? resumo.duracaoMediaS, 0);
+      const re95g  = toNum(resumo.re_p95_global ?? resumo.reP95Global, 0);
 
-      // -------- Tabelas --------
-      fillTable('#tbl-hotspots tbody', d?.hotspots, (x) => `
-        <tr>
-          <td>${esc(x.projeto)}</td>
-          <td>${esc(x.job)}</td>
-          <td>${fmt(toNum(x.eventos))}</td>
-          <td>${fmt(toNum(x.risco_medio ?? x.riscoMedio, 3), 3)}</td>
-          <td>${fmt(toNum(x.risco_p95 ?? x.riscoP95, 3), 3)}</td>
-          <td>${fmt(toNum(x.duracao_media_s ?? x.duracaoMediaS ?? x.duracao, 0))}</td>
-        </tr>`);
+      // KPIs
+      $('#kpi-total').textContent   = fmt(total);
+      $('#kpi-failed').textContent  = fmt(failed);
+      $('#kpi-success').textContent = fmt(success);
+      $('#kpi-avgdur').textContent  = fmt(avgDur, 0);
+      $('#kpi-re95').textContent    = fmt(re95g, 3);
+      $('#kpi-failrate').textContent= total ? (failed/total*100).toFixed(1) + '% falha' : '–';
 
-      fillTable('#tbl-samples tbody', d?.top_amostras ?? d?.amostras ?? d?.samples, (s) => `
-        <tr>
-          <td>${esc(s.projeto)}</td>
-          <td>${esc(s.job)}</td>
-          <td>${esc(s.exec_id ?? s.execId ?? '')}</td>
-          <td>${esc(s.inicio ?? s.start ?? '')}</td>
-          <td>${esc(s.status ?? '')}</td>
-          <td>${fmt(toNum(s.duracao_s ?? s.duracao ?? 0))}</td>
-          <td>${fmt(toNum(s.risco ?? s.risk, 3), 3)}</td>
-        </tr>`);
-
-      // -------- Gráficos --------
-      renderCharts(d);
-    }
-
-    function esc(s) { return (s ?? '').toString().replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
-
-    function fillTable(sel, arr, rowFn) {
-      const tbody = document.querySelector(sel);
-      tbody.innerHTML = '';
-      if (!Array.isArray(arr) || arr.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#94a3b8">Sem dados</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = arr.map(rowFn).join('');
-    }
-
-    function renderCharts(d) {
-      // --- Hotspots ---
       const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
-      const hLabels = [];
-      const hValues = [];
-      for (const x of hot) {
-        const val = toNum(x?.eventos, null);
-        if (Number.isFinite(val)) { hLabels.push(String(x?.job ?? '—')); hValues.push(val); }
-      }
+      $('#kpi-hotcnt').textContent = fmt(hot.length);
 
-      chartHotspots?.destroy();
-      const hintH = $('#hintHotspots'); hintH.hidden = true;
-      const ctxH = $('#chartHotspots').getContext('2d');
-      if (hLabels.length && hValues.length) {
-        chartHotspots = new Chart(ctxH, {
-          type: 'bar',
-          data: { labels: hLabels, datasets: [{ label: 'Eventos cruzados', data: hValues }] },
-          options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false }, tooltip: { mode:'index', intersect:false } },
-            scales: { x: { ticks: { autoSkip: true, maxRotation: 0 }}, y: { beginAtZero: true } }
-          }
-        });
-      } else {
-        ctxH.clearRect(0,0,ctxH.canvas.width,ctxH.canvas.height);
-        hintH.hidden = false;
-      }
+      // Top jobs por p95
+      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+      const topNames = p95jobs.slice(0,3).map(j => j.job).join(', ') || '—';
+      $('#kpi-topjobs').textContent = p95jobs.length ? fmt(p95jobs.length) : '0';
+      $('#kpi-topjobs-names').textContent = topNames;
 
-      // --- Risco p95 / média ---
-      const risco = Array.isArray(d?.risco_p95_por_job ?? d?.riscoPorJob) ? (d.risco_p95_por_job ?? d.riscoPorJob) : [];
-      const rLabels = [];
-      const rMed = [];
-      const rP95 = [];
-      for (const x of risco) {
-        const med = toNum(x?.duracao_media ?? x?.duracaoMedia, null);
-        const p95 = toNum(x?.p95, null);
-        if (Number.isFinite(med) || Number.isFinite(p95)) {
-          rLabels.push(String(x?.job ?? '—'));
-          rMed.push(Number.isFinite(med) ? med : null);
-          rP95.push(Number.isFinite(p95) ? p95 : null);
-        }
-      }
+      // Tabela hotspots (primeiras 50 linhas)
+      const tbody = $('#tbl-hotspots tbody');
+      tbody.innerHTML = '';
+      (hot.slice(0,50)).forEach(s => {
+        tbody.insertAdjacentHTML('beforeend', `
+          <tr>
+            <td>${esc(s.projeto)}</td>
+            <td>${esc(s.job)}</td>
+            <td>${esc(s.exec_id ?? '')}</td>
+            <td>${esc(s.inicio ?? '')}</td>
+            <td>${esc(s.status ?? '')}</td>
+            <td>${fmt(toNum(s.duracao_s ?? s.duracao ?? 0))}</td>
+            <td>${fmt(toNum(s.re ?? s.risco ?? 0), 3)}</td>
+          </tr>`);
+      });
 
-      chartRisk?.destroy();
-      const hintR = $('#hintRisk'); hintR.hidden = true;
-      const ctxR = $('#chartRisk').getContext('2d');
-      const hasSeries = rLabels.length && ((rMed.filter(n=>n!==null).length) || (rP95.filter(n=>n!==null).length));
-      if (hasSeries) {
-        chartRisk = new Chart(ctxR, {
-          type: 'line',
-          data: {
-            labels: rLabels,
-            datasets: [
-              { label: 'Duração média (s)', data: rMed, spanGaps: true },
-              { label: 'p95 (s)', data: rP95, spanGaps: true }
-            ]
-          },
-          options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom' }, tooltip: { mode:'index', intersect:false } },
-            interaction: { mode: 'index', intersect: false },
-            scales: { y: { beginAtZero: true } }
-          }
-        });
-      } else {
-        ctxR.clearRect(0,0,ctxR.canvas.width,ctxR.canvas.height);
-        hintR.hidden = false;
+      render3D(hot, p95jobs, re95g);
+      renderInsights(d);
+    }
+
+    function render3D(hot, p95jobs, re95g){
+      // -------- Plot 1: Hotspots 3D --------
+      const maxPoints = 1000;
+      const arr = hot.slice(0, maxPoints).map((x,i)=> ({
+        t: Date.parse(x.inicio || '') || (i*60*1000), // fallback: índice*minuto
+        dur: toNum(x.duracao_s ?? x.duracao ?? 0),
+        re: toNum(x.re ?? x.risco ?? 0),
+        status: String(x.status || 'n/a'),
+        projeto: String(x.projeto || ''),
+        job: String(x.job || ''),
+        exec: String(x.exec_id || '')
+      }));
+
+      const groups = groupBy(arr, (o)=>o.projeto || '—');
+      const traces = Object.entries(groups).map(([proj, items]) => ({
+        type: 'scatter3d',
+        mode: 'markers',
+        name: proj,
+        x: items.map(o=>o.t),
+        y: items.map(o=>o.dur),
+        z: items.map(o=>o.re),
+        text: items.map(o=>`<b>${proj}</b> / ${o.job}<br>exec: ${o.exec}<br>status: ${o.status}<br>duração: ${o.dur}s<br>RE: ${o.re.toFixed?.(3)}`),
+        hovertemplate: '%{text}<extra></extra>',
+        marker: { size: 4, opacity: 0.9 }
+      }));
+
+      const timeTicks = approximateTimeTicks(arr.map(a=>a.t));
+      const layout1 = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        scene: {
+          xaxis: { title: 'Tempo', tickvals: timeTicks.vals, ticktext: timeTicks.labels, gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          yaxis: { title: 'Duração (s)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          zaxis: { title: 'RE', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          bgcolor: 'rgba(0,0,0,0)',
+        },
+        legend: { orientation:'h', y: -0.2, font:{color:'#cbd5e1'} },
+        margin: { l:0, r:0, t:0, b:0 },
+      };
+
+      Plotly.newPlot('plot-hotspots', traces, layout1, {displayModeBar:true, responsive:true});
+
+      // -------- Plot 2: p95 por Job (bolhas 3D) --------
+      // x = índice do job (para ordenação), y = volume (ocorrências), z = re_p95, size = volume
+      const counts = countBy(hot, (x)=> String(x.job || '—'));
+      const items = p95jobs.map((j, idx) => ({
+        idx, job: String(j.job), proj: String(j.projeto || ''),
+        re95: toNum(j.re_p95 ?? j.p95 ?? j.reP95 ?? 0),
+        vol: counts[j.job] ?? 0
+      }));
+
+      const trace2 = [{
+        type: 'scatter3d', mode: 'markers', name: 'Jobs',
+        x: items.map(o=>o.idx), y: items.map(o=>o.vol), z: items.map(o=>o.re95),
+        text: items.map(o=>`<b>${o.job}</b> (${o.proj})<br>ocorrências: ${o.vol}<br>p95 RE: ${o.re95.toFixed?.(3)}`),
+        hovertemplate: '%{text}<extra></extra>',
+        marker: { size: items.map(o=> Math.max(4, Math.min(30, Math.sqrt(o.vol||1)*3))), opacity:0.9 }
+      }];
+
+      const layout2 = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        scene: {
+          xaxis: { title: 'Job (índice)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          yaxis: { title: 'Ocorrências (hotspots)', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          zaxis: { title: 'RE p95', gridcolor:'#223047', zerolinecolor:'#223047', color:'#cbd5e1' },
+          bgcolor: 'rgba(0,0,0,0)',
+        },
+        margin: { l:0, r:0, t:0, b:0 }
+      };
+
+      Plotly.newPlot('plot-p95', trace2, layout2, {displayModeBar:true, responsive:true});
+    }
+
+    function renderInsights(d){
+      const out = $('#insights'); out.innerHTML = '';
+      const resumo = d?.resumo || {};
+      const total = toNum(resumo.total_execucoes ?? resumo.registros);
+      const failed = toNum(resumo.por_status?.failed ?? resumo.falhas);
+      const re95g = toNum(resumo.re_p95_global ?? 0);
+      const hot = Array.isArray(d?.hotspots) ? d.hotspots : [];
+      const p95jobs = Array.isArray(d?.risco_p95_por_job) ? d.risco_p95_por_job : [];
+
+      const failRate = total ? failed/total : 0;
+      const highRiskJobs = p95jobs.filter(j => toNum(j.re_p95) >= re95g).map(j => j.job);
+
+      const insights = [];
+      if (total) insights.push(`Volume analisado: ${total.toLocaleString('pt-BR')} execuções; taxa de falha ${ (failRate*100).toFixed(1) }%.`);
+      if (highRiskJobs.length) insights.push(`Jobs acima do patamar global de risco (RE p95 ≥ ${re95g.toFixed(3)}): ${highRiskJobs.slice(0,5).join(', ')}${highRiskJobs.length>5?'…':''}.`);
+      if (hot.length) {
+        const worst = [...hot].sort((a,b)=> toNum(b.re)-toNum(a.re)).slice(0,1)[0];
+        if (worst) insights.push(`Maior RE observado: ${toNum(worst.re).toFixed(3)} no job ${worst.job} (${worst.projeto}), duração ${toNum(worst.duracao_s).toFixed(0)}s.`);
       }
+      if (!insights.length) insights.push('Não há insights relevantes com a base atual.');
+
+      for (const txt of insights) {
+        out.insertAdjacentHTML('beforeend', `<div class="insight">${esc(txt)}</div>`);
+      }
+    }
+
+    function groupBy(arr, keyFn){
+      const m = new Map();
+      for (const it of arr){ const k = keyFn(it); if(!m.has(k)) m.set(k, []); m.get(k).push(it); }
+      return Object.fromEntries(m);
+    }
+    function countBy(arr, keyFn){
+      const m = new Map();
+      for (const it of arr){ const k = keyFn(it); m.set(k, (m.get(k)||0)+1); }
+      return Object.fromEntries(m);
+    }
+    function approximateTimeTicks(times){
+      if(!times.length) return {vals:[], labels:[]};
+      const min = Math.min(...times), max = Math.max(...times);
+      const span = Math.max(1, max-min);
+      const steps = 5;
+      const vals = Array.from({length:steps}, (_,i)=> Math.round(min + i*span/(steps-1)));
+      const labels = vals.map(v=> new Date(v).toLocaleString('pt-BR'));
+      return {vals, labels};
+    }
+
+    function exportCSV(){
+      if(!raw) return;
+      const hot = Array.isArray(raw.hotspots) ? raw.hotspots : [];
+      const cols = ['projeto','job','exec_id','inicio','status','duracao_s','re'];
+      const header = cols.join(',');
+      const lines = hot.map(r => [
+        r.projeto, r.job, r.exec_id, r.inicio, r.status, r.duracao_s ?? r.duracao ?? '', r.re ?? r.risco ?? ''
+      ].map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(','));
+      const csv = [header].concat(lines).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'hotspots.csv'; a.click();
+      URL.revokeObjectURL(url);
     }
 
     $('#btn-reload').addEventListener('click', loadData);
+    $('#btn-export').addEventListener('click', exportCSV);
     window.addEventListener('DOMContentLoaded', loadData);
-
-    // Log de erros não capturados (útil para debugar Chart.js ou JSON)
-    window.addEventListener('error', e => console.error('Uncaught:', e.message));
   </script>
 </body>
 </html>
